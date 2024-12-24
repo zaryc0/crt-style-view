@@ -1,0 +1,227 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="ColourPalette.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    <!--This Dictionary is for Default style overides e.g scroll bars-->
+    <Style TargetType="ScrollBar">
+        <Setter Property="Background" Value="{StaticResource ConsoleBackGroundBrush}"/>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Height" Value="5"/>
+                <Setter Property="MinHeight" Value="5"/>
+            </Trigger>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Width" Value="5"/>
+                <Setter Property="MinWidth" Value="5"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="GridSplitter">
+        <Style.Triggers>
+            <Trigger Property="HorizontalAlignment" Value="Stretch">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GridSplitter">
+                            <Rectangle Height="2"
+                                   Margin="5,0"
+                                   Fill="{TemplateBinding Background}"
+                                   Stroke="{TemplateBinding BorderBrush}"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="VerticalAlignment" Value="Stretch">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GridSplitter">
+                            <Rectangle Width="2"
+                                   Margin="0,5"
+                                   Fill="{TemplateBinding Background}"
+                                   Stroke="{TemplateBinding BorderBrush}"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>
+
+    <Style x:Key="GlowingTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource ConsoleForeGroundBrush}" />
+        <Setter Property="FontFamily" Value="VT323"/>
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="{StaticResource ConsoleAfterGlow}" 
+                                  BlurRadius="10" 
+                                  ShadowDepth="0" 
+                                  Opacity="0.7" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SelectableRow" TargetType="ListView">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Background"  Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+    </Style>
+    
+    <Style TargetType="Border" x:Key="Backlight">
+        <Setter Property="Background" Value="{StaticResource ConsoleForeGroundBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource ConsoleAfterGlowBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <BlurEffect Radius="8" />
+                <!-- Apply Blur effect for glass effect -->
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Style for TextBox with Glowing Background and Drop Shadow for Text -->
+    <Style TargetType="TextBox" x:Key="TerminalTextBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource ConsoleForeGroundBrush}" />
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="TextAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="VT323" />
+        <Setter Property="CaretBrush" Value="{StaticResource ConsoleAfterGlowBrush}"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="{StaticResource ConsoleAfterGlow}" 
+                                  BlurRadius="10" 
+                                  ShadowDepth="0" 
+                                  Opacity="0.7"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <!-- Remove border when mouse is over (no interaction-based change) -->
+        <Setter Property="IsHitTestVisible" Value="true" />
+        <Setter Property="Cursor" Value="IBeam" />
+        <!-- Ensure the cursor inside is the text selection cursor -->
+    </Style>
+
+    <!-- Red Button Style with Glow and Backlit Effect -->
+    <Style x:Key="RetroRedButton" TargetType="Button">
+        <!-- Base Styling for Button -->
+        <Setter Property="Background" Value="{StaticResource ButtonBackgroundBrush}" />
+        <!-- Base Red background -->
+        <Setter Property="Foreground" Value="{StaticResource ButtonForegroundBrush}" />
+        <!-- White text for visibility -->
+        <Setter Property="FontFamily" Value="VT323" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Padding" Value="10,5" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <!-- No visible border -->
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Height" Value="40" />
+
+        <!-- Apply control template -->
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <!-- Background Border with rounded corners -->
+                        <Border x:Name="BackgroundBorder" Background="{TemplateBinding Background}" BorderBrush="{StaticResource ButtonBackgroundBrush}" BorderThickness="2" CornerRadius="5">
+                            <Border.Effect>
+                                <DropShadowEffect Color="{StaticResource ButtonAfterGlow}" BlurRadius="10" ShadowDepth="0" Opacity="0.7" />
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <!-- Define VisualStateManager to handle hover/pressed states -->
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <!-- Normal State (No interaction) -->
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <!-- Set Background and Effect in normal state -->
+                                        <ColorAnimation Storyboard.TargetName="BackgroundBorder"
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        To="{StaticResource ButtonBackground}" Duration="0:0:0.3"/>
+                                        <DoubleAnimation Storyboard.TargetName="BackgroundBorder"
+                                                         Storyboard.TargetProperty="Effect.BlurRadius"
+                                                         To="12" Duration="0:0:0.3"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <!-- MouseOver State -->
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <!-- Make the button glow more intensely on hover -->
+                                        <ColorAnimation Storyboard.TargetName="BackgroundBorder"
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        To="{StaticResource ButtonHover}" Duration="0:0:0.3"/>
+                                        <DoubleAnimation Storyboard.TargetName="BackgroundBorder"
+                                                         Storyboard.TargetProperty="Effect.BlurRadius"
+                                                         To="15" Duration="0:0:0.3"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <!-- Pressed State -->
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <!-- Change Background when pressed, more intense -->
+                                        <ColorAnimation Storyboard.TargetName="BackgroundBorder"
+                                                        Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"
+                                                        To="DarkRed" Duration="0:0:0.2"/>
+                                        <DoubleAnimation Storyboard.TargetName="BackgroundBorder"
+                                                         Storyboard.TargetProperty="Effect.BlurRadius"
+                                                         To="18" Duration="0:0:0.2"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Context Menu Style -->
+    <Style x:Key="ConsoleContextMenuStyle" TargetType="ContextMenu">
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Background" Value="{StaticResource ConsoleBackGroundBrush}" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                    <StackPanel ClipToBounds="True" 
+                                Orientation="Vertical" 
+                                IsItemsHost="True" 
+                                Margin="0" 
+                                Background="{TemplateBinding Background}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="{x:Static MenuItem.TopLevelItemTemplateKey}" TargetType="{x:Type MenuItem}">
+        <Border Name="Border" >
+            <Grid>
+                <ContentPresenter Margin="0" ContentSource="Header" RecognizesAccessKey="True" />
+            </Grid>
+        </Border>
+    </ControlTemplate>
+
+    <BitmapImage x:Key="DeleteIco" UriSource="pack://application:,,,/Resources/Images/stuff.png" />
+
+    <!-- MenuItem Style -->
+    <Style TargetType="MenuItem" x:Key="ConsoleMenuItem">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource ConsoleForeGroundBrush}" />
+        <Setter Property="FontFamily" Value="VT323" />
+        <Setter Property="Margin" Value="-25,0,0,0"/>
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="IsCheckable" Value="False"/>
+    </Style>
+
+    <Style TargetType="{x:Type Grid}">
+        <Setter Property="ShowGridLines" Value="False"/>
+    </Style>
+</ResourceDictionary>

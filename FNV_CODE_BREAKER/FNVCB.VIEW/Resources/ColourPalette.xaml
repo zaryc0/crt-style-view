@@ -1,0 +1,49 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!--Colours for Color properties-->
+    <Color x:Key="ConsoleBackGround">#FF060f00</Color>
+    <Color x:Key="ConsoleForeGround">#FF00f666</Color>
+    <Color x:Key="ConsoleAfterGlow">#FF66FF66</Color>
+    <Color x:Key="MonitorFrame">#FF2C2926</Color>
+    <Color x:Key="MonitorBorder">#FF333333</Color>
+    <Color x:Key="MonitorForeground">#FFD6D6D6</Color>
+    <Color x:Key="ButtonBackground">#FF8B0000</Color>
+    <Color x:Key="ButtonForeground">#FFFFB6B6</Color>
+    <Color x:Key="ButtonAfterGlow">#FFFF4500</Color>
+    <Color x:Key="ButtonHover">#FF6B1F1F</Color>
+    <Color x:Key="ScanLineDark">#12000000</Color>
+    <Color x:Key="ScanLineLight">#12006060</Color>
+
+    <!--Brushes for background properties-->
+    <SolidColorBrush x:Key="ConsoleBackGroundBrush" Color="{StaticResource ConsoleBackGround}"/>
+    <SolidColorBrush x:Key="ConsoleForeGroundBrush" Color="{StaticResource ConsoleForeGround}"/>
+    <SolidColorBrush x:Key="ConsoleAfterGlowBrush"  Color="{StaticResource ConsoleAfterGlow}"/>
+    <SolidColorBrush x:Key="MonitorFrameBrush"      Color="{StaticResource MonitorFrame}"/>
+    <SolidColorBrush x:Key="MonitorBorderBrush"     Color="{StaticResource MonitorBorder}"/>
+    <SolidColorBrush x:Key="MonitorForegroundBrush" Color="{StaticResource MonitorForeground}"/>
+    <SolidColorBrush x:Key="ButtonBackgroundBrush"  Color="{StaticResource ButtonBackground}"/>
+    <SolidColorBrush x:Key="ButtonForegroundBrush"  Color="{StaticResource ButtonForeground}"/>
+    <SolidColorBrush x:Key="ButtonAfterGlowBrush"   Color="{StaticResource ButtonAfterGlow}"/>
+    <SolidColorBrush x:Key="ButtonHoverBrush"       Color="{StaticResource ButtonHover}"/>
+    
+    <LinearGradientBrush x:Key="MonitorBackgroundLinGrad" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FF2C2926" Offset="1.0"/>
+        <GradientStop Color="#FF4F4B46" Offset="0.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ScanlineBrush" StartPoint="0,0" EndPoint="0,10" SpreadMethod="Repeat" MappingMode="Absolute">
+        <GradientStop Color="{StaticResource ScanLineLight}" Offset="0.0"/>
+        <GradientStop Color="{StaticResource ScanLineDark}"  Offset="0.25"/>
+        <GradientStop Color="{StaticResource ScanLineLight}" Offset="0.5"/>
+        <GradientStop Color="{StaticResource ScanLineDark}"  Offset="0.75"/>
+        <GradientStop Color="{StaticResource ScanLineLight}" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ScanlineShortBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="{StaticResource ScanLineLight}" Offset="0.0"/>
+        <GradientStop Color="{StaticResource ScanLineDark}"  Offset="0.5"/>
+        <GradientStop Color="{StaticResource ScanLineLight}" Offset="1.0"/>
+    </LinearGradientBrush>
+
+</ResourceDictionary>

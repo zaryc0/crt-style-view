@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="FNVCB.VIEW.Console_View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FNVCB.VIEW"
+             xmlns:vm="clr-namespace:FNVCB.VIEWMODEL;assembly=FNVCB.VIEWMODEL"
+             d:DataContext="{d:DesignInstance Type=vm:Console_VM, IsDesignTimeCreatable=True}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Resources/AllStyles.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Resources/ViewTemplates.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Border Style="{StaticResource Backlight}"/>
+        <Border CornerRadius="10"
+                BorderThickness="1"
+                BorderBrush="Transparent"
+                Background="{StaticResource ConsoleBackGroundBrush}">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!-- Define a semi-transparent glass effect (frosted look) -->
+                <ListView Grid.Row="0"
+                          HorizontalAlignment="Stretch"
+                          Background="Transparent"
+                          BorderBrush="Transparent"
+                          ItemsSource="{Binding Guesses}"
+                          SelectedItem="{Binding SelectedItem, Mode=TwoWay}" 
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.ContextMenu>
+                        <ContextMenu Style="{StaticResource ConsoleContextMenuStyle}"
+                                     BorderThickness="2">
+                            <MenuItem Style="{StaticResource ConsoleMenuItem}"
+                                      Header="DELETE" 
+                                      Command="{Binding RemoveItem}"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <Border Padding="5,0,0,0">
+                                            <ContentPresenter/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+                <ListView Grid.Row="2"
+                          Background="Transparent"
+                          BorderBrush="Transparent"
+                          ItemsSource="{Binding Console_lines}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}"
+                                       FontSize="20"
+                                       Style="{StaticResource GlowingTextBlockStyle}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </Border>
+        <Border Background="{StaticResource ScanlineBrush}"
+                IsHitTestVisible="False"/>
+    </Grid>
+</UserControl>
